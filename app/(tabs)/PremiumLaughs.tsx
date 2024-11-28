@@ -11,6 +11,7 @@ import {
 import { MotiView } from 'moti';
 import { Ionicons } from '@expo/vector-icons';
 import { laughStyles, Persona } from '@/constants/LaughStyles';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -35,12 +36,17 @@ const PremiumLaughs = () => {
   if (selectedPersona) {
     // Render Selected Card
     return (
-      <View style={styles.selectedContainer}>
+      <MotiView 
+        from={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: 'timing', duration: 300 }}
+        style={styles.selectedContainer}
+      >
         <TouchableOpacity
           style={styles.exitButton}
           onPress={() => setSelectedPersona(null)}
         >
-          <Ionicons name="close-circle" size={30} color="#fff" />
+        <Ionicons name="close-circle" size={30} color="#fff" />
         </TouchableOpacity>
         <Image source={selectedPersona.image} style={styles.selectedImage} />
         <Text style={styles.selectedName}>{selectedPersona.name}</Text>
@@ -48,35 +54,46 @@ const PremiumLaughs = () => {
           <Ionicons name="diamond" size={16} /> ${selectedPersona.value}
         </Text>
         <Text style={styles.selectedDescription}>{selectedPersona.description}</Text>
-        <TouchableOpacity
-          style={styles.playButton}
-          onPress={() => console.log('Play Laugh:', selectedPersona.audio)}
-        >
-          <Ionicons name="play" size={20} color="#fff" />
+        <TouchableOpacity style={styles.playButton}>
+          <LinearGradient
+            colors={['#FF6B6B', '#4ECDC4', '#45B7D1']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={StyleSheet.absoluteFill}
+          />
+          <Ionicons name="play" size={18} color="#fff" />
           <Text style={styles.buttonText}>Play Laugh</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.practiceButton}
-          onPress={() => console.log('Practice Laugh:', selectedPersona.audio)}
-        >
-          <Ionicons name="mic" size={20} color="#fff" />
+        <TouchableOpacity style={styles.practiceButton}>
+          <LinearGradient
+            colors={['#4A4A4A', '#2D2D2D', '#1A1A1A']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={StyleSheet.absoluteFill}
+          />
+          <Ionicons name="mic" size={18} color="#fff" />
           <Text style={styles.buttonText}>Practice Laugh</Text>
         </TouchableOpacity>
-      </View>
+      </MotiView>
     );
   }
 
   // Render Row View
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Laugh Styles</Text>
+    <MotiView 
+      from={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ type: 'timing', duration: 300 }}
+      style={styles.container}
+    >
+      <Text style={styles.header}>Premium Laughs</Text>
       <FlatList
         data={laughStyles}
         renderItem={renderRow}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
       />
-    </View>
+    </MotiView>
   );
 };
 
@@ -87,21 +104,24 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '700',
     color: '#fff',
     marginBottom: 20,
+    letterSpacing: 0.5,
   },
   listContent: {
     paddingBottom: 20,
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: '#141414',
+    backgroundColor: 'rgba(20, 20, 20, 0.8)',
     padding: 16,
     borderRadius: 16,
     marginBottom: 12,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
   cardImage: {
     width: 60,
@@ -113,10 +133,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
     color: '#fff',
     marginBottom: 4,
+    letterSpacing: 0.3,
   },
   cardValue: {
     fontSize: 14,
@@ -127,7 +148,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1A1A1A',
+    backgroundColor: '#0A0A0A',
     padding: 24,
   },
   exitButton: {
@@ -138,14 +159,15 @@ const styles = StyleSheet.create({
   selectedImage: {
     width: width * 0.4,
     height: width * 0.4,
-    borderRadius: width * 0.2,
+    borderRadius: width * 0.1,
     marginBottom: 16,
   },
   selectedName: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: '700',
     color: '#fff',
     marginBottom: 8,
+    letterSpacing: 0.5,
   },
   selectedValue: {
     fontSize: 18,
@@ -154,37 +176,39 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   selectedDescription: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#9CA3AF',
     textAlign: 'center',
     marginBottom: 24,
+    lineHeight: 20,
   },
   playButton: {
-    backgroundColor: '#34D399',
+    overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16,
+    paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 100,
     width: '100%',
     marginBottom: 12,
   },
   practiceButton: {
-    backgroundColor: '#2A2A2A',
+    overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16,
+    paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 100,
     width: '100%',
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
     marginLeft: 8,
+    letterSpacing: 0.3,
   },
 });
 
