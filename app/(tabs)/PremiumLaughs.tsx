@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,20 +10,75 @@ import {
 } from 'react-native';
 import { MotiView } from 'moti';
 import { Ionicons } from '@expo/vector-icons';
-import { laughStyles, Persona } from '@/constants/LaughStyles';
 import { LinearGradient } from 'expo-linear-gradient';
+import { supabase } from '../../lib/supabase';
+import { Audio } from 'expo-av';
 
 const { width } = Dimensions.get('window');
 
-const PremiumLaughs = () => {
-  const [selectedPersona, setSelectedPersona] = useState<Persona | null>(null);
+interface LaughStyle {
+  id: string;
+  name: string;
+  image_url: string;
+  value: string;
+  description: string;
+  audio_url: string;
+}
 
-  const renderRow = ({ item }: { item: Persona }) => (
+const PremiumLaughs = () => {
+  const [selectedPersona, setSelectedPersona] = useState<LaughStyle | null>(null);
+  const [laughStyles, setLaughStyles] = useState<LaughStyle[]>([]);
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchLaughStyles();
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, []);
+
+  const fetchLaughStyles = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('laugh_styles')
+        .select('*')
+        .order('id');
+
+      if (error) {
+        console.error('Error fetching laugh styles:', error);
+        return;
+      }
+
+      setLaughStyles(data || []);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const playSound = async (audioUrl: string) => {
+    try {
+      if (sound) {
+        await sound.unloadAsync();
+      }
+      const { sound: newSound } = await Audio.Sound.createAsync({ uri: audioUrl });
+      setSound(newSound);
+      await newSound.playAsync();
+    } catch (error) {
+      console.error('Error playing sound:', error);
+    }
+  };
+
+  const renderRow = ({ item }: { item: LaughStyle }) => (
     <TouchableOpacity
       style={styles.card}
       onPress={() => setSelectedPersona(item)}
     >
-      <Image source={item.image} style={styles.cardImage} />
+      <Image source={{ uri: item.image_url }} style={styles.cardImage} />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle}>{item.name}</Text>
         <Text style={styles.cardValue}>
@@ -34,7 +89,6 @@ const PremiumLaughs = () => {
   );
 
   if (selectedPersona) {
-    // Render Selected Card
     return (
       <MotiView 
         from={{ opacity: 0, scale: 0.9 }}
@@ -46,15 +100,18 @@ const PremiumLaughs = () => {
           style={styles.exitButton}
           onPress={() => setSelectedPersona(null)}
         >
-        <Ionicons name="close-circle" size={30} color="#fff" />
+          <Ionicons name="close-circle" size={30} color="#fff" />
         </TouchableOpacity>
-        <Image source={selectedPersona.image} style={styles.selectedImage} />
+        <Image source={{ uri: selectedPersona.image_url }} style={styles.selectedImage} />
         <Text style={styles.selectedName}>{selectedPersona.name}</Text>
         <Text style={styles.selectedValue}>
           <Ionicons name="diamond" size={16} /> ${selectedPersona.value}
         </Text>
         <Text style={styles.selectedDescription}>{selectedPersona.description}</Text>
-        <TouchableOpacity style={styles.playButton}>
+        <TouchableOpacity 
+          style={styles.playButton}
+          onPress={() => playSound(selectedPersona.audio_url)}
+        >
           <LinearGradient
             colors={['#FF6B6B', '#4ECDC4', '#45B7D1']}
             start={{ x: 0, y: 0 }}
@@ -78,7 +135,6 @@ const PremiumLaughs = () => {
     );
   }
 
-  // Render Row View
   return (
     <MotiView 
       from={{ opacity: 0 }}
