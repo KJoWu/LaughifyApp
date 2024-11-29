@@ -9,13 +9,18 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.myapp",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.myapp"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +41,7 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "scheme": "myapp"
   }
 }

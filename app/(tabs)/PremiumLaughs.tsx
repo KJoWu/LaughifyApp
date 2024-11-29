@@ -72,7 +72,7 @@ const PremiumLaughs = () => {
             style={StyleSheet.absoluteFill}
           />
           <Ionicons name="mic" size={18} color="#fff" />
-          <Text style={styles.buttonText}>Practice Laugh</Text>
+          <Text style={styles.buttonText}>Practice Laugh (Coming soon!)</Text>
         </TouchableOpacity>
       </MotiView>
     );

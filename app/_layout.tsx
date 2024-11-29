@@ -1,62 +1,72 @@
-import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack, Redirect } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
+import { Session } from '@supabase/supabase-js';
+import { View } from 'react-native';
+import tw from 'tailwind-react-native-classnames';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-// Custom Theme
-const CustomTheme = {
-  ...DefaultTheme, // Base it on the default theme
-  colors: {
-    ...DefaultTheme.colors,
-    background: '#1F2937', // gray-900 background for the menu
-  },
-};
-
-export default function RootLayout() {
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+export default function Layout() {
+  const [session, setSession] = useState<Session | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setIsLoading(false);
+    });
 
-  if (!loaded) {
-    return null;
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Show loading state while checking auth
+  if (isLoading) {
+    return (
+      <View style={tw`flex-1 bg-gray-900`} />
+    );
   }
 
   return (
-    <ThemeProvider value={CustomTheme}>
-      <Stack>
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: true, // Show the header
-            headerTitle: 'RichLaughify', // Header text/logo
-            headerTitleStyle: {
-              fontSize: 20,
-              fontWeight: 'bold',
-              color: '#FFD700', // Gold color for a luxurious feel
-            },
-            headerStyle: {
-              backgroundColor: '#1F2937', // Match menu background
-            },
-            headerShadowVisible: false, // Hides border for React Navigation
-          }}
+    <View style={tw`flex-1 bg-black`}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen 
+          name="index"
+          redirect={!!session}
         />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen 
+          name="(tabs)"
+          redirect={!session}
+        />
+        <Stack.Screen name="recover-password" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </View>
   );
+}
+
+export function useProtectedRoute() {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (!session) {
+    return <Redirect href="/" />;
+  }
+
+  return null;
 }
