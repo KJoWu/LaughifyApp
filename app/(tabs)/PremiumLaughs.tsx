@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,90 +11,111 @@ import {
 import { MotiView } from 'moti';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { supabase } from '../../lib/supabase';
 import { Audio } from 'expo-av';
+import { laughStyles, Persona } from '../../constants/LaughStyles';
 
 const { width } = Dimensions.get('window');
 
-interface LaughStyle {
-  id: string;
-  name: string;
-  image_url: string;
-  value: string;
-  description: string;
-  audio_url: string;
-}
-
 const PremiumLaughs = () => {
-  const [selectedPersona, setSelectedPersona] = useState<LaughStyle | null>(null);
-  const [laughStyles, setLaughStyles] = useState<LaughStyle[]>([]);
+  const [selectedPersona, setSelectedPersona] = useState<Persona | null>(null);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetchLaughStyles();
+  // Sort laughs from highest to lowest based on score
+  const sortedLaughs = [...laughStyles].sort((a, b) => parseInt(b.value) - parseInt(a.value));
+
+  const playSound = async (audioFile: string) => {
+    // Play sound logic here (currently a placeholder)
+  };
+
+  // Cleanup audio resources
+  React.useEffect(() => {
     return () => {
       if (sound) {
         sound.unloadAsync();
       }
     };
-  }, []);
+  }, [sound]);
 
-  const fetchLaughStyles = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('laugh_styles')
-        .select('*')
-        .order('id');
+  const renderRow = ({ item }: { item: Persona }) => {
+    const isLocked = parseInt(item.value) > 3000;
 
-      if (error) {
-        console.error('Error fetching laugh styles:', error);
-        return;
-      }
+    return (
+      <TouchableOpacity
+        style={[
+          styles.card,
+          isLocked ? styles.lockedCard : styles.achievedCard,
+        ]}
+        onPress={() => setSelectedPersona(item)}
+      >
+        <Image
+          source={item.image}
+          style={[
+            styles.cardImage,
+            isLocked && styles.lockedImage,
+          ]}
+        />
+        <View style={styles.cardContent}>
+          <Text
+            style={[
+              styles.cardTitle,
+              isLocked && styles.lockedText,
+            ]}
+          >
+            {item.name}
+          </Text>
+          <View style={styles.valueContainer}>
+            <Text
+              style={[
+                styles.cardValue,
+                isLocked && styles.lockedText,
+              ]}
+            >
+              <Ionicons name="diamond-outline" size={14} /> LMV: ${item.value}
+            </Text>
+            <Text
+              style={[
+                styles.cardValue,
+                isLocked && styles.lockedText,
+              ]}
+            >
+              Current Score: {item.currentScore}
+            </Text>
 
-      setLaughStyles(data || []);
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      setIsLoading(false);
-    }
+            {isLocked ? (
+              <Ionicons
+                name="lock-closed"
+                size={28}
+                color="#FF6B6B"
+                style={styles.statusIcon}
+              />
+            ) : (
+              <Ionicons
+                name="checkmark-circle"
+                size={28}
+                color="#34D399"
+                style={styles.statusIcon}
+              />
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
-
-  const playSound = async (audioUrl: string) => {
-    try {
-      if (sound) {
-        await sound.unloadAsync();
-      }
-      const { sound: newSound } = await Audio.Sound.createAsync({ uri: audioUrl });
-      setSound(newSound);
-      await newSound.playAsync();
-    } catch (error) {
-      console.error('Error playing sound:', error);
-    }
-  };
-
-  const renderRow = ({ item }: { item: LaughStyle }) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => setSelectedPersona(item)}
-    >
-      <Image source={{ uri: item.image_url }} style={styles.cardImage} />
-      <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>{item.name}</Text>
-        <Text style={styles.cardValue}>
-          <Ionicons name="diamond-outline" size={14} /> ${item.value}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
 
   if (selectedPersona) {
+    const isLocked = parseInt(selectedPersona.value) > 5000;
+
     return (
-      <MotiView 
+      <MotiView
         from={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'timing', duration: 300 }}
-        style={styles.selectedContainer}
+        style={[
+          styles.selectedContainer,
+          isLocked
+            ? styles.lockedDetailContainer
+            : styles.achievedDetailContainer,
+        ]}
       >
         <TouchableOpacity
           style={styles.exitButton}
@@ -102,41 +123,102 @@ const PremiumLaughs = () => {
         >
           <Ionicons name="close-circle" size={30} color="#fff" />
         </TouchableOpacity>
-        <Image source={{ uri: selectedPersona.image_url }} style={styles.selectedImage} />
-        <Text style={styles.selectedName}>{selectedPersona.name}</Text>
-        <Text style={styles.selectedValue}>
-          <Ionicons name="diamond" size={16} /> ${selectedPersona.value}
+        <Image
+          source={selectedPersona.image}
+          style={[
+            styles.selectedImage,
+            isLocked && styles.lockedImage,
+          ]}
+        />
+        <Text
+          style={[
+            styles.selectedName,
+            isLocked && styles.lockedText,
+          ]}
+        >
+          {selectedPersona.name}
         </Text>
-        <Text style={styles.selectedDescription}>{selectedPersona.description}</Text>
-        <TouchableOpacity 
-          style={styles.playButton}
-          onPress={() => playSound(selectedPersona.audio_url)}
+        <Text
+          style={[
+            styles.selectedValue,
+            isLocked && styles.lockedText,
+          ]}
+        >
+          <Ionicons name="diamond" size={16} /> ${selectedPersona.value} - Laugh Market Value
+        </Text>
+        <Text
+          style={[
+            styles.selectedDescription,
+            isLocked && styles.lockedText,
+          ]}
+        >
+          {selectedPersona.description}
+        </Text>
+        <TouchableOpacity
+          style={[
+            styles.playButton,
+            isLocked && styles.lockedButton,
+          ]}
+          onPress={() => playSound(selectedPersona.audio)}
+          disabled={isLocked}
         >
           <LinearGradient
-            colors={['#FF6B6B', '#4ECDC4', '#45B7D1']}
+            colors={
+              isLocked
+                ? ['#4A4A4A', '#2D2D2D', '#1A1A1A']
+                : ['#FF6B6B', '#4ECDC4', '#45B7D1']
+            }
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={StyleSheet.absoluteFill}
           />
-          <Ionicons name="play" size={18} color="#fff" />
-          <Text style={styles.buttonText}>Play Laugh</Text>
+          <Ionicons name="play" size={18} color={isLocked ? '#666' : '#fff'} />
+          <Text
+            style={[
+              styles.buttonText,
+              isLocked && styles.lockedButtonText,
+            ]}
+          >
+            {isLocked ? 'Locked' : 'Play Laugh'}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.practiceButton}>
+        <TouchableOpacity
+          style={[
+            styles.practiceButton,
+            isLocked && styles.lockedButton,
+          ]}
+          disabled={isLocked}
+        >
           <LinearGradient
             colors={['#4A4A4A', '#2D2D2D', '#1A1A1A']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={StyleSheet.absoluteFill}
           />
-          <Ionicons name="mic" size={18} color="#fff" />
-          <Text style={styles.buttonText}>Practice Laugh (Coming soon!)</Text>
+          <Ionicons name="mic" size={18} color={isLocked ? '#666' : '#fff'} />
+          <Text
+            style={[
+              styles.buttonText,
+              isLocked && styles.lockedButtonText,
+            ]}
+          >
+            Challenge Score
+          </Text>
         </TouchableOpacity>
+        {!isLocked && (
+          <View style={styles.acquiredContainer}>
+            <Ionicons name="checkmark-circle" size={32} color="#34D399" />
+            <Text style={styles.acquiredText}>
+              Highest Score: {selectedPersona.currentScore}
+            </Text>
+          </View>
+        )}
       </MotiView>
     );
   }
 
   return (
-    <MotiView 
+    <MotiView
       from={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ type: 'timing', duration: 300 }}
@@ -144,7 +226,7 @@ const PremiumLaughs = () => {
     >
       <Text style={styles.header}>Premium Laughs</Text>
       <FlatList
-        data={laughStyles}
+        data={sortedLaughs}
         renderItem={renderRow}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
@@ -171,19 +253,29 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(20, 20, 20, 0.8)',
     padding: 16,
     borderRadius: 16,
     marginBottom: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  achievedCard: {
+    backgroundColor: 'rgba(52, 211, 153, 0.1)',
+    borderColor: 'rgba(52, 211, 153, 0.2)',
+  },
+  lockedCard: {
+    backgroundColor: 'rgba(20, 20, 20, 0.8)',
+    borderColor: 'rgba(255, 107, 107, 0.2)',
+    opacity: 0.7,
   },
   cardImage: {
     width: 60,
     height: 60,
     borderRadius: 12,
     marginRight: 16,
+  },
+  lockedImage: {
+    opacity: 0.5,
   },
   cardContent: {
     flex: 1,
@@ -195,17 +287,33 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     letterSpacing: 0.3,
   },
+  valueContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   cardValue: {
     fontSize: 14,
     color: '#34D399',
     fontWeight: '500',
   },
+  statusIcon: {
+    marginLeft: 8,
+  },
+  lockedText: {
+    color: '#666',
+  },
   selectedContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0A0A0A',
     padding: 24,
+  },
+  achievedDetailContainer: {
+    backgroundColor: 'black',
+  },
+  lockedDetailContainer: {
+    backgroundColor: '#0A0A0A',
   },
   exitButton: {
     position: 'absolute',
@@ -249,6 +357,9 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 12,
   },
+  lockedButton: {
+    opacity: 0.5,
+  },
   practiceButton: {
     overflow: 'hidden',
     flexDirection: 'row',
@@ -266,6 +377,23 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     letterSpacing: 0.3,
   },
+  lockedButtonText: {
+    color: '#666',
+  },
+  acquiredContainer: {
+    marginTop: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  acquiredText: {
+    fontSize: 16,
+    color: '#34D399',
+    fontWeight: '600',
+    marginLeft: 8,
+    textAlign: 'center',
+    letterSpacing: 0.3,
+  }
 });
 
 export default PremiumLaughs;

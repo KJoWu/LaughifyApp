@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MyApp",
-    "slug": "MyApp",
+    "slug": "richlaughify",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -42,6 +42,20 @@
     "experiments": {
       "typedRoutes": true
     },
-    "scheme": "myapp"
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "29d6525c-ee4e-4c59-b2dd-cdd5a7bbd049"
+      }
+    },
+    "owner": "kwu01921",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/29d6525c-ee4e-4c59-b2dd-cdd5a7bbd049"
+    }
   }
 }
