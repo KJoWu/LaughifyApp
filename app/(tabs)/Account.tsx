@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
-import { StyleSheet, View, Alert } from 'react-native'
-import { Button, Input } from '@rneui/themed'
+import { View, Alert, Text, TextInput, TouchableOpacity } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import { useProtectedRoute } from '../_layout'
 import { useRouter } from 'expo-router'
+import tw from 'tailwind-react-native-classnames'
 
 export default function Account() {
   const [loading, setLoading] = useState(false)
@@ -103,7 +103,6 @@ export default function Account() {
     try {
       setLoading(true)
       await supabase.auth.signOut()
-      // Instead of using router.replace, let the auth state change trigger the navigation
       setSession(null)
     } catch (error) {
       if (error instanceof Error) {
@@ -115,62 +114,68 @@ export default function Account() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input label="Email" value={session?.user?.email} disabled />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label="Username"
-          value={username || ''}
-          onChangeText={(text) => setUsername(text)}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label="New Password"
-          secureTextEntry
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+    <View style={tw`flex-1 bg-black px-4 pt-12`}>
+      <Text style={tw`text-white text-2xl font-bold mb-8`}>Account Settings</Text>
+      
+      <View style={tw`mb-6`}>
+        <Text style={tw`text-gray-400 text-sm mb-2`}>Email</Text>
+        <TextInput
+          style={tw`bg-gray-900 text-white p-4 rounded-lg`}
+          value={session?.user?.email}
+          editable={false}
         />
       </View>
 
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button
-          title={loading ? 'Loading ...' : 'Update Username'}
-          onPress={updateProfile}
-          disabled={loading}
+      <View style={tw`mb-6`}>
+        <Text style={tw`text-gray-400 text-sm mb-2`}>Username</Text>
+        <TextInput
+          style={tw`bg-gray-900 text-white p-4 rounded-lg`}
+          value={username || ''}
+          onChangeText={setUsername}
+          placeholderTextColor="#4B5563"
         />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title={loading ? 'Loading ...' : 'Update Password'}
-          onPress={updatePassword}
-          disabled={loading}
+
+      <View style={tw`mb-6`}>
+        <Text style={tw`text-gray-400 text-sm mb-2`}>New Password</Text>
+        <TextInput
+          style={tw`bg-gray-900 text-white p-4 rounded-lg`}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          placeholderTextColor="#4B5563"
         />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title={loading ? 'Signing Out...' : 'Sign Out'}
-          onPress={handleSignOut}
-          disabled={loading}
-        />
-      </View>
+
+      <TouchableOpacity
+        style={tw`bg-green-600 p-4 rounded-lg mb-4 ${loading ? 'opacity-50' : ''}`}
+        onPress={updateProfile}
+        disabled={loading}
+      >
+        <Text style={tw`text-white text-center font-bold`}>
+          {loading ? 'Loading...' : 'Update Username'}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={tw`bg-green-600 p-4 rounded-lg mb-4 ${loading ? 'opacity-50' : ''}`}
+        onPress={updatePassword}
+        disabled={loading}
+      >
+        <Text style={tw`text-white text-center font-bold`}>
+          {loading ? 'Loading...' : 'Update Password'}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={tw` p-4 rounded-lg ${loading ? 'opacity-50' : ''}`}
+        onPress={handleSignOut}
+        disabled={loading}
+      >
+        <Text style={tw`text-white text-center font-bold`}>
+          {loading ? 'Signing Out...' : 'Sign Out'}
+        </Text>
+      </TouchableOpacity>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 40,
-    padding: 12,
-  },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: 'stretch',
-  },
-  mt20: {
-    marginTop: 20,
-  },
-})

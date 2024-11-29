@@ -66,7 +66,7 @@ export default function Auth() {
         {/* Header Section */}
         <View style={tw`space-y-2`}>
           <Text style={tw`text-4xl font-bold text-white text-center`}>
-            Laff
+            RichLaughify
           </Text>
           <Text style={tw`text-gray-400 text-center mb-10`}>
             Sign in to your account to continue
