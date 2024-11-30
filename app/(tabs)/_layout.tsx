@@ -77,15 +77,15 @@ export default function TabLayout() {
   };
 
   return (
-    <View style={tw`flex-1 bg-black`}>
-      <View style={tw`flex-row justify-between items-center px-4 pt-8 pb-2 bg-black`}>
+    <View style={tw`flex-1 bg-gray-900`}>
+      <View style={tw`flex-row justify-between items-center px-4 pt-8 pb-2 bg-gray-900`}>
 
       <Text
         style={[
           tw`text-2xl font-bold text-yellow-400`,
           {
             textShadowColor: 'rgba(255, 223, 0, 0.8)', // Bright yellow glow
-            textShadowOffset: { width: 0, height: 0 }, // No directional shadow
+            textShadowOffset: { width: 0, height: 0 }, // No directional shadowppre
             textShadowRadius: 10, // Glow radius
           },
         ]}
@@ -98,8 +98,8 @@ export default function TabLayout() {
       </View>
       <Tabs screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: 'black' },
-        tabBarActiveTintColor: 'white',
+        tabBarStyle: { backgroundColor: 'bg-gray-900' },
+        tabBarActiveTintColor: '#00ff87',
         tabBarInactiveTintColor: 'gray',
       }}>
         <Tabs.Screen
