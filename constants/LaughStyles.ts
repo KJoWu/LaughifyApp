@@ -6,6 +6,7 @@ export interface Persona {
   description: string;
   audio: string;
   currentScore: number;
+  achieved:boolean;
 }
 
 export interface Scenario {
@@ -25,7 +26,8 @@ export const laughStyles: Persona[] = [
     value: "2000",
     description: "A hearty laugh of triumph, like someone who just sold a million digital downloads of wedding invitations.",
     audio: "audio/etsy.mp3",
-    currentScore: 8
+    currentScore: 8,
+    achieved: true
   },
   {
     id: "2",
@@ -34,7 +36,8 @@ export const laughStyles: Persona[] = [
     value: "1500",
     description: "A laugh of relentless optimism, perfect for someone pitching the next big AI-powered T-shirt company.",
     audio: "audio/startup.mp3",
-    currentScore: 7
+    currentScore: 7,
+    achieved: true
   },
   {
     id: "3",
@@ -43,7 +46,8 @@ export const laughStyles: Persona[] = [
     value: "1800",
     description: "A cheeky laugh of confidence, like someone who just sold out their NSFW fanart at a comic convention.",
     audio: "audio/convention.mp3",
-    currentScore: 9
+    currentScore: 9,
+    achieved: true
   },
   {
     id: "4",
@@ -52,7 +56,8 @@ export const laughStyles: Persona[] = [
     value: "5000",
     description: "A refined laugh that echoes across the green, fitting for someone who owns five golf courses and calls it an investment.",
     audio: "audio/golf.mp3",
-    currentScore: 0
+    currentScore: 0,
+    achieved: false
   },
   {
     id: "5",
@@ -61,7 +66,8 @@ export const laughStyles: Persona[] = [
     value: "7000",
     description: "A laugh that balances arrogance and charm, typical of someone who just closed their third fund at 27.",
     audio: "audio/hedgefund.mp3",
-    currentScore: 0
+    currentScore: 0,
+    achieved: false
   },
   {
     id: "6",
@@ -70,7 +76,8 @@ export const laughStyles: Persona[] = [
     value: "2000",
     description: "A laugh of refinement, grace, and just enough condescension to let everyone know you are better than them.",
     audio: "audio/aristocrat.mp3",
-    currentScore: 6
+    currentScore: 6,
+    achieved: true
   },
   {
     id: "7",
@@ -79,7 +86,8 @@ export const laughStyles: Persona[] = [
     value: "3000",
     description: "This laugh is unhinged yet irresistible - perfect for someone who just bought a diamond-encrusted handbag for their dog.",
     audio: "audio/heiress.mp3",
-    currentScore: 8
+    currentScore: 3,
+    achieved: true
   },
   {
     id: "8",
@@ -88,7 +96,8 @@ export const laughStyles: Persona[] = [
     value: "5000",
     description: "A dark, villainous laugh designed for moments of ultimate power, like cornering a rival company or raising rent.",
     audio: "audio/tycoon.mp3",
-    currentScore: 0
+    currentScore: 0,
+    achieved: false
   },
   {
     id: "9",
@@ -97,7 +106,8 @@ export const laughStyles: Persona[] = [
     value: "800",
     description: "This laugh is quick and shaky, like someone pretending they understand hedge funds but just Googled how stocks work.",
     audio: "audio/nervous.mp3",
-    currentScore: 7
+    currentScore: 7,
+    achieved: true
   },
   {
     id: "10",
@@ -105,7 +115,9 @@ export const laughStyles: Persona[] = [
     image: require("../assets/images/pic1.png"),
     value: "2500",
     description: "Soft, bubbly, and effervescent, this laugh pairs well with caviar and pretending to care about the opera.mp3",
-    currentScore: 8
+    audio: "audio/champagne.mp3",
+    currentScore: 8,
+    achieved: true
   },
   {
     id: "11",
@@ -114,7 +126,8 @@ export const laughStyles: Persona[] = [
     value: "1200",
     description: "This laugh is perfectly curated for Instagram Stories - effortless and slightly fake, just like their lifestyle.",
     audio: "audio/influencer.mp3",
-    currentScore: 6
+    currentScore: 6,
+    achieved: true
   },
   {
     id: "12",
@@ -123,7 +136,8 @@ export const laughStyles: Persona[] = [
     value: "3500",
     description: "This laugh is ecstatic and borderline chaotic, like someone who just won the jackpot and immediately quit their job.",
     audio: "audio/lottery.mp3",
-    currentScore: 0
+    currentScore: 0,
+    achieved: false
   },
   {
     id: "13",
@@ -132,7 +146,8 @@ export const laughStyles: Persona[] = [
     value: "500",
     description: "A hesitant laugh that screams, Am I supposed to find this funny, or is this a trap?",
     audio: "audio/overthinker.mp3",
-    currentScore: 7
+    currentScore: 7,
+    achieved: true
   },
   {
     id: "14",
@@ -141,7 +156,8 @@ export const laughStyles: Persona[] = [
     value: "7000",
     description: "A low, cryptic laugh with pauses that leave everyone wondering if they are in on the joke or the next target.",
     audio: "audio/mysterious.mp3",
-    currentScore: 0
+    currentScore: 0,
+    achieved: false
   },
   {
     id: "15",
@@ -150,7 +166,8 @@ export const laughStyles: Persona[] = [
     value: "4000",
     description: "A commanding laugh designed to intimidate competitors and assert dominance during awkward silences in meetings.",
     audio: "audio/boardroom.mp3",
-    currentScore: 0
+    currentScore: 0,
+    achieved: false
   },
   {
     id: "16",
@@ -159,7 +176,8 @@ export const laughStyles: Persona[] = [
     value: "3000",
     description: "A calm, collected laugh, like someone who earns more sleeping than most do working.",
     audio: "audio/investor.mp3",
-    currentScore: 8
+    currentScore: 8,
+    achieved: true
   }
 ];
 
@@ -179,7 +197,7 @@ export const scenarios: Scenario[] = [
     image: require("../assets/images/pic1.png"),
     description: "Have a good rich laugh as you realign the chakras in your wealthy mansion on Mars with your new age movement friends",
     audio: "audio/test.mp3",
-    laughValue:2000,
+    laughValue:3000,
   },
   {
     id: "3",
@@ -195,7 +213,7 @@ export const scenarios: Scenario[] = [
     image: require("../assets/images/pic1.png"),
     description: "Have a good rich laugh as you realign the chakras in your wealthy mansion on Mars with your new age movement friends",
     audio: "audio/test.mp3",
-    laughValue:2000,
+    laughValue:4000,
   },
   {
     id: "2",
@@ -203,7 +221,7 @@ export const scenarios: Scenario[] = [
     image: require("../assets/images/pic1.png"),
     description: "Have a good rich laugh as you realign the chakras in your wealthy mansion on Mars with your new age movement friends",
     audio: "audio/test.mp3",
-    laughValue:2000,
+    laughValue:5000,
   },
   {
     id: "3",
@@ -235,7 +253,7 @@ export const scenarios: Scenario[] = [
     image: require("../assets/images/pic1.png"),
     description: "Have a good rich laugh as you realign the chakras in your wealthy mansion on Mars with your new age movement friends",
     audio: "audio/test.mp3",
-    laughValue:2000,
+    laughValue:900,
   },
   {
     id: "322",
