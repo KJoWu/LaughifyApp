@@ -83,7 +83,7 @@ export const laughStyles: Persona[] = [
     id: "7",
     name: "The Heiress",
     image: require("../assets/images/pic1.png"),
-    value: "3000",
+    value: "2300",
     description: "This laugh is unhinged yet irresistible - perfect for someone who just bought a diamond-encrusted handbag for their dog.",
     audio: "audio/heiress.mp3",
     currentScore: 3,

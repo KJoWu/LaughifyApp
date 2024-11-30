@@ -21,7 +21,7 @@ const PremiumLaughs = () => {
   const [selectedPersona, setSelectedPersona] = useState<Persona | null>(null);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
-  const sortedLaughs = [...laughStyles].sort((a, b) => parseInt(b.value) - parseInt(a.value));
+  const sortedLaughs = [...laughStyles].sort((a, b) => parseInt(a.value) - parseInt(b.value));
 
   const playSound = async (audioFile: string) => {
     // Placeholder for sound logic
@@ -66,7 +66,7 @@ const PremiumLaughs = () => {
               size={14}
               color={isLocked ? "#FF6B6B" : "#4ECDC4"}
             />
-            <Text style={{ color: isLocked ? "red" : "#4ECDC4" }}>
+            <Text style={{ color: isLocked ? "#ff6b6b" : "#4ECDC4" }}>
               LMV: {item.value}
             </Text>
             <Text style={tw`text-gray-300`}> | </Text>
@@ -159,7 +159,7 @@ const PremiumLaughs = () => {
           disabled={isLocked}
         >
           <LinearGradient
-            colors={isLocked ? ["#FF6B6B", "#FF5252"] : ["#4ECDC4", "#45B8B0"]}
+            colors={isLocked ? ["#FF6B6B", "#FF5252"] : ["#4ECDC4", "#00798f"]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={StyleSheet.absoluteFill}
@@ -169,6 +169,26 @@ const PremiumLaughs = () => {
             {isLocked ? "Locked" : "Play Laugh"}
           </Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={tw`w-full overflow-hidden flex-row items-center justify-center py-3.5 px-8 rounded-full mb-3`}
+          onPress={() => playSound(selectedPersona.audio)}
+          disabled={isLocked}
+        >
+          <LinearGradient
+            colors={isLocked ? ["#FF6B6B", "#FF5252"] : ["#ffa500", "#ff6600"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={StyleSheet.absoluteFill}
+          />
+          <Ionicons name="play" size={18} color="#fff" />
+          <Text style={tw`text-white font-semibold ml-2`}>
+            {isLocked ? "Locked" : "Practice Laugh"}
+          </Text>
+        </TouchableOpacity>
+        <Text style={tw`text-white font-semibold ml-2 text-lg`}>
+          Current Score: {selectedPersona.currentScore}
+        </Text>
       </MotiView>
     );
   }
@@ -183,12 +203,12 @@ const PremiumLaughs = () => {
       <View style={tw`flex-row justify-between items-center mb-5`}>
         <Text style={tw`text-white text-xl font-bold`}>Premium Laughs</Text>
 
-        <Text style={tw`text-white text-xl font-bold flex-row items-center`}>
-          <Ionicons name="diamond-outline" size={20} color="#4ECDC4" />
-          <Text style={{ color: "#4ECDC4", fontWeight: "600", marginLeft: 8 }}>
-            Your LMV: 3300
-          </Text>
-        </Text>
+
+        <View style={tw`flex-row items-center`}>
+              <Text style={[tw`text-4xl font-bold`, { color: '#00ff87' }]}>3,300</Text>
+              <Text style={[tw`ml-2`, { color: '#60efff' }]}>Current LMV</Text>
+            </View>
+
       </View>
 
       <FlatList

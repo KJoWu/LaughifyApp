@@ -86,10 +86,10 @@ export default function Practice() {
       Select your Scenario
     </Text>
 
-    <Text style={tw`text-white text-xl font-bold flex-row items-center`}>
-      <Ionicons name="diamond-outline" size={20} color="#4ECDC4" />
-      <Text style={tw`ml-2 text-xl text-teal-400 font-semibold`}>Your LMV: 3300</Text>
-    </Text>
+    <View style={tw`flex-row items-center`}>
+              <Text style={[tw`text-4xl font-bold`, { color: '#00ff87' }]}>3,300</Text>
+              <Text style={[tw`ml-2`, { color: '#60efff' }]}>Current LMV</Text>
+            </View>
   </View>
       <FlatList
         data={scenarios}

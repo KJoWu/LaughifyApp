@@ -98,9 +98,9 @@ export default function TabIndex() {
           ]}
         >
           <View style={[tw`bg-gray-900 rounded-2xl p-6`]}>
-            <Text style={[tw`text-sm mb-2`, { color: '#60efff' }]}>Current Laugh Market Value</Text>
+            <Text style={[tw`text-sm mb-2`, { color: '#60efff' }]}>Your current Laugh Market Value</Text>
             <View style={tw`flex-row items-center`}>
-              <Text style={[tw`text-4xl font-bold`, { color: '#00ff87' }]}>8,000</Text>
+              <Text style={[tw`text-4xl font-bold`, { color: '#00ff87' }]}>3,300</Text>
               <Text style={[tw`ml-2`, { color: '#60efff' }]}>LMV</Text>
             </View>
             <Text style={[tw`text-sm mt-2`, { color: '#00ff87' }]}>+12% from last week</Text>
