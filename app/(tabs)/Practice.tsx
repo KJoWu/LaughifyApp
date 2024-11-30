@@ -28,7 +28,7 @@ export default function Practice() {
           tw`p-4 rounded-lg mb-4 shadow-lg border-2`,
           isLocked 
             ? tw`bg-gray-800 border-red-500 border-opacity-50` 
-            : tw`bg-gray-800 border-teal-400 border-opacity-30`
+            : tw`bg-gray-900 border-teal-400 border-opacity-30`
         ]}
       >
         <View style={tw`relative`}>
@@ -80,10 +80,17 @@ export default function Practice() {
   };
 
   return (
-    <View style={tw`flex-1 bg-black pt-10 px-4`}>
-      <Text style={tw`text-white text-2xl text-center font-bold mb-4`}>
-        Select Your Scenario
-      </Text>
+    <View style={tw`flex-1 bg-black px-4`}>
+    <View style={tw`flex-row justify-between items-center mb-5`}>
+    <Text style={tw`text-white text-xl font-bold`}>
+      Select your Scenario
+    </Text>
+
+    <Text style={tw`text-white text-xl font-bold flex-row items-center`}>
+      <Ionicons name="diamond-outline" size={20} color="#4ECDC4" />
+      <Text style={tw`ml-2 text-xl text-teal-400 font-semibold`}>Your LMV: 3300</Text>
+    </Text>
+  </View>
       <FlatList
         data={scenarios}
         keyExtractor={(item) => item.id}

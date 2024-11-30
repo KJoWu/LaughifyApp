@@ -24,7 +24,7 @@ const PremiumLaughs = () => {
   const sortedLaughs = [...laughStyles].sort((a, b) => parseInt(b.value) - parseInt(a.value));
 
   const playSound = async (audioFile: string) => {
-    // Play sound logic here (placeholder)
+    // Placeholder for sound logic
   };
 
   React.useEffect(() => {
@@ -40,12 +40,12 @@ const PremiumLaughs = () => {
     const isLocked = value > 3000;
     const isAchieved = !isLocked && item.currentScore > 5;
 
-    const cardStyle = tw`flex-row p-4 rounded-2xl mb-5 items-center border-2`;
-    const bgStyle = isLocked 
-      ? tw`bg-gray-800 border-red-500 border-opacity-50`
-      : isAchieved 
-        ? tw`bg-gray-800 border-teal-400 border-opacity-50`
-        : tw`bg-gray-800 border-teal-400 border-opacity-30`;
+    const cardStyle = tw`flex-row p-4 rounded-2xl mb-5 items-center border-2 shadow-lg`;
+    const bgStyle = isLocked
+      ? { backgroundColor: '#252525', borderColor: '#FF4C4C' }
+      : isAchieved
+        ? { backgroundColor: '#1F1F1F', borderColor: '#4ECDC4' }
+        : { backgroundColor: '#1F1F1F', borderColor: '#45B8B0' };
 
     return (
       <TouchableOpacity
@@ -56,29 +56,31 @@ const PremiumLaughs = () => {
           source={item.image}
           style={[
             tw`w-16 h-16 rounded-xl mr-4`,
-            isLocked && tw`opacity-50`
+            isLocked && { opacity: 0.6 },
           ]}
         />
         <View style={tw`flex-1`}>
           <Text style={tw`text-base font-semibold mb-2 tracking-wide`}>
-            <Ionicons 
-              name="diamond-outline" 
-              size={14} 
-              color={isLocked ? "#FF6B6B" : "#4ECDC4"} 
+            <Ionicons
+              name="diamond-outline"
+              size={14}
+              color={isLocked ? "#FF6B6B" : "#4ECDC4"}
             />
-            <Text style={isLocked ? tw`text-red-400` : tw`text-teal-400`}> LMV: {item.value}</Text>
+            <Text style={{ color: isLocked ? "red" : "#4ECDC4" }}>
+              LMV: {item.value}
+            </Text>
             <Text style={tw`text-gray-300`}> | </Text>
-            <Text style={isLocked ? tw`text-gray-500` : tw`text-gray-300`}>{item.name}</Text>
+            <Text style={isLocked ? tw`text-gray-500` : tw`text-gray-300`}>
+              {item.name}
+            </Text>
           </Text>
           <View style={tw`flex-row items-center justify-between`}>
             {!isLocked ? (
-              <Text style={tw`text-base font-semibold text-teal-400`}>
+              <Text style={{ color: "#4ECDC4", fontWeight: "600" }}>
                 Current Score: {item.currentScore}
               </Text>
             ) : (
-              <Text style={tw`text-red-400 text-sm`}>
-                Unlock with higher LMV
-              </Text>
+              <Text style={tw`text-red-400 text-sm`}>Unlock with higher LMV</Text>
             )}
 
             {isLocked ? (
@@ -109,7 +111,7 @@ const PremiumLaughs = () => {
       <MotiView
         from={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: 'timing', duration: 300 }}
+        transition={{ type: "timing", duration: 300 }}
         style={tw`flex-1 justify-center items-center p-6 bg-black`}
       >
         <TouchableOpacity
@@ -123,11 +125,13 @@ const PremiumLaughs = () => {
             source={selectedPersona.image}
             style={[
               tw`w-40 h-40 rounded-3xl mb-4`,
-              isLocked && tw`opacity-50`
+              isLocked && { opacity: 0.6 },
             ]}
           />
           {isLocked && (
-            <View style={tw`absolute right-2 top-2 bg-black bg-opacity-70 p-2 rounded-full`}>
+            <View
+              style={tw`absolute right-2 top-2 bg-black bg-opacity-70 p-2 rounded-full`}
+            >
               <Ionicons name="lock-closed" size={24} color="#FF6B6B" />
             </View>
           )}
@@ -136,64 +140,35 @@ const PremiumLaughs = () => {
           {selectedPersona.name}
         </Text>
         <Text style={tw`text-lg font-semibold mb-4`}>
-          <Ionicons 
-            name="diamond" 
-            size={16} 
+          <Ionicons
+            name="diamond"
+            size={16}
             color={isLocked ? "#FF6B6B" : "#4ECDC4"}
-          /> 
-          <Text style={isLocked ? tw`text-red-400` : tw`text-teal-400`}>
+          />{" "}
+          <Text style={{ color: isLocked ? "red" : "#4ECDC4" }}>
             ${selectedPersona.value} - Laugh Market Value
           </Text>
         </Text>
         <Text style={tw`text-sm text-gray-400 text-center mb-6 leading-5`}>
           {selectedPersona.description}
         </Text>
-        
+
         <TouchableOpacity
           style={tw`w-full overflow-hidden flex-row items-center justify-center py-3.5 px-8 rounded-full mb-3`}
           onPress={() => playSound(selectedPersona.audio)}
           disabled={isLocked}
         >
           <LinearGradient
-            colors={
-              isLocked
-                ? ['#FF6B6B', '#FF5252', '#FF4444']
-                : ['#4ECDC4', '#45B8B0', '#3CA49C']
-            }
+            colors={isLocked ? ["#FF6B6B", "#FF5252"] : ["#4ECDC4", "#45B8B0"]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={StyleSheet.absoluteFill}
           />
           <Ionicons name="play" size={18} color="#fff" />
           <Text style={tw`text-white font-semibold ml-2`}>
-            {isLocked ? 'Locked' : 'Play Laugh'}
+            {isLocked ? "Locked" : "Play Laugh"}
           </Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={tw`w-full overflow-hidden flex-row items-center justify-center py-3.5 px-8 rounded-full ${isLocked ? 'opacity-50' : ''}`}
-          disabled={isLocked}
-        >
-          <LinearGradient
-            colors={['#FFB74D', '#FFA726', '#FF9800']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={StyleSheet.absoluteFill}
-          />
-          <Ionicons name="mic" size={18} color="#fff" />
-          <Text style={tw`text-white font-semibold ml-2`}>
-            Challenge Score
-          </Text>
-        </TouchableOpacity>
-
-        {!isLocked && (
-          <View style={tw`mt-4 flex-row items-center justify-center`}>
-            <Ionicons name="checkmark-circle" size={32} color="#34D399" />
-            <Text style={tw`text-base font-semibold text-teal-400 ml-2`}>
-              Highest Score: {selectedPersona.currentScore}
-            </Text>
-          </View>
-        )}
       </MotiView>
     );
   }
@@ -202,17 +177,17 @@ const PremiumLaughs = () => {
     <MotiView
       from={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ type: 'timing', duration: 300 }}
-      style={tw`flex-1 bg-black p-5 px-4`}
+      transition={{ type: "timing", duration: 300 }}
+      style={tw`flex-1 bg-black px-4`}
     >
       <View style={tw`flex-row justify-between items-center mb-5`}>
-        <Text style={tw`text-white text-xl font-bold`}>
-          Premium Laughs
-        </Text>
+        <Text style={tw`text-white text-xl font-bold`}>Premium Laughs</Text>
 
         <Text style={tw`text-white text-xl font-bold flex-row items-center`}>
           <Ionicons name="diamond-outline" size={20} color="#4ECDC4" />
-          <Text style={tw`ml-2 text-xl text-teal-400 font-semibold`}>Your LMV: 3300</Text>
+          <Text style={{ color: "#4ECDC4", fontWeight: "600", marginLeft: 8 }}>
+            Your LMV: 3300
+          </Text>
         </Text>
       </View>
 
