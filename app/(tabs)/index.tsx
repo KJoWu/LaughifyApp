@@ -6,7 +6,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 interface GradientBadgeProps {
   text: string;
-  gradientColors: [string, string];
   style?: StyleProp<ViewStyle>;
 }
 
@@ -24,15 +23,16 @@ export default function TabIndex() {
     return `${x},${y}`;
   }).join(' ');
 
-  const GradientBadge = ({ text, gradientColors, style }: GradientBadgeProps) => (
-    <LinearGradient
-      colors={gradientColors}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-      style={[tw`rounded-full px-3 py-1 justify-center items-center`, { minHeight: 24 }, style]}
+  const GradientBadge = ({ text, style }: GradientBadgeProps) => (
+    <View 
+      style={[
+        tw`rounded-full px-3 py-1 justify-center items-center bg-black bg-opacity-30`, 
+        { minHeight: 24 }, 
+        style
+      ]}
     >
       <Text style={[tw`text-white text-xs`, { textAlign: 'center' }]}>{text}</Text>
-    </LinearGradient>
+    </View>
   );
 
   return (
@@ -115,18 +115,17 @@ export default function TabIndex() {
           style={tw`rounded-2xl p-6 mb-6`}
         >
           <View style={tw`flex-row justify-between items-center mb-3`}>
-            <Text style={tw`text-white text-lg font-bold`}>Scenario of the Day</Text>
+            <Text style={[tw`text-lg font-bold`, { color: '#FFE66D' }]}>Scenario of the Day</Text>
             <GradientBadge 
               text="NEW" 
-              gradientColors={['#FF6B6B', '#FFE66D']}
               style={{ minWidth: 50 }}
             />
           </View>
-          <Text style={tw`text-white text-base mb-3`}>
+          <Text style={[tw`text-base mb-3`, { color: '#FFE66D' }]}>
             "You're at a comedy show and the comedian tells a joke that's only mildly funny"
           </Text>
           <TouchableOpacity style={tw`bg-black bg-opacity-30 rounded-xl p-3 flex-row justify-center`}>
-            <Text style={tw`text-white font-bold`}>Practice This Scenario</Text>
+            <Text style={[tw`font-bold`, { color: '#FF6B6B' }]}>Practice This Scenario</Text>
           </TouchableOpacity>
         </LinearGradient>
 
@@ -141,7 +140,6 @@ export default function TabIndex() {
             <Text style={tw`text-white text-lg font-bold`}>Laugh Tip of the Day</Text>
             <GradientBadge 
               text="PRO TIP" 
-              gradientColors={['#4CAF50', '#8BC34A']}
               style={{ minWidth: 70, marginLeft: 12 }}
             />
           </View>
@@ -161,7 +159,6 @@ export default function TabIndex() {
             <Text style={tw`text-white text-xl font-bold`}>Practice Mode</Text>
             <GradientBadge 
               text="AI Powered" 
-              gradientColors={['#2196F3', '#00BCD4']}
               style={{ minWidth: 90 }}
             />
           </View>
