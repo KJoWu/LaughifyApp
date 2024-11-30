@@ -26,7 +26,7 @@ export default function TabIndex() {
   const GradientBadge = ({ text, style }: GradientBadgeProps) => (
     <View 
       style={[
-        tw`rounded-full px-3 py-1 justify-center items-center bg-black bg-opacity-30`, 
+        tw`rounded-full px-3 py-1 justify-center items-center bg-black bg-opacity-60`, 
         { minHeight: 24 }, 
         style
       ]}
@@ -98,7 +98,7 @@ export default function TabIndex() {
           ]}
         >
           <View style={[tw`bg-gray-900 rounded-2xl p-6`]}>
-            <Text style={[tw`text-sm mb-2`, { color: '#60efff' }]}>Current LAugh Market Value</Text>
+            <Text style={[tw`text-sm mb-2`, { color: '#60efff' }]}>Current Laugh Market Value</Text>
             <View style={tw`flex-row items-center`}>
               <Text style={[tw`text-4xl font-bold`, { color: '#00ff87' }]}>8,000</Text>
               <Text style={[tw`ml-2`, { color: '#60efff' }]}>LMV</Text>
@@ -115,17 +115,16 @@ export default function TabIndex() {
           style={tw`rounded-2xl p-6 mb-6`}
         >
           <View style={tw`flex-row justify-between items-center mb-3`}>
-            <Text style={[tw`text-lg font-bold`, { color: '#FFE66D' }]}>Scenario of the Day</Text>
+            <Text style={[tw`text-lg font-bold`, { color: 'bg-gray-900' }]}>Scenario of the Day</Text>
             <GradientBadge 
               text="NEW" 
               style={{ minWidth: 50 }}
             />
           </View>
-          <Text style={[tw`text-base mb-3`, { color: '#FFE66D' }]}>
-            "You're at a comedy show and the comedian tells a joke that's only mildly funny"
-          </Text>
-          <TouchableOpacity style={tw`bg-black bg-opacity-30 rounded-xl p-3 flex-row justify-center`}>
-            <Text style={[tw`font-bold`, { color: '#FF6B6B' }]}>Practice This Scenario</Text>
+          <Text style={[tw`text-base mb-3`, { color: 'bg-gray-900' }]}>
+          You're on your yacht, sipping $10,000 whiskey, and someone tells a joke that's so bad you briefly consider laughing then buying their company just to fire them. </Text>
+          <TouchableOpacity style={tw`bg-black bg-opacity-50 rounded-xl p-3 flex-row justify-center`}>
+            <Text style={[tw`font-bold`, { color: 'white' }]}>Practice This Scenario</Text>
           </TouchableOpacity>
         </LinearGradient>
 
@@ -137,13 +136,13 @@ export default function TabIndex() {
           style={tw`rounded-2xl p-6 mb-6`}
         >
           <View style={tw`flex-row items-center mb-3`}>
-            <Text style={tw`text-white text-lg font-bold`}>Laugh Tip of the Day</Text>
+            <Text style={tw`text-gray-800 text-lg font-bold`}>Laugh Tip of the Day</Text>
             <GradientBadge 
               text="PRO TIP" 
               style={{ minWidth: 70, marginLeft: 12 }}
             />
           </View>
-          <Text style={tw`text-white text-base`}>
+          <Text style={tw`text-gray-800 text-base`}>
             "Start with a gentle 'ha' and gradually increase to 'HA' for a more authentic laugh. This creates a natural progression that others find more genuine."
           </Text>
         </LinearGradient>
@@ -164,9 +163,9 @@ export default function TabIndex() {
           </View>
           
           <TouchableOpacity 
-            style={tw`bg-black bg-opacity-30 p-4 rounded-xl flex-row items-center justify-center`}
+            style={tw`bg-black bg-opacity-50 p-4 rounded-xl flex-row items-center justify-center`}
           >
-            <Text style={tw`text-white text-lg font-bold`}>Practice with AILAughfred</Text>
+            <Text style={tw`text-white text-lg font-bold`}>Practice with Opulaugh</Text>
           </TouchableOpacity>
           
           <Text style={tw`text-gray-100 text-sm mt-4 text-center`}>
