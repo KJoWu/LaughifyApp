@@ -93,8 +93,6 @@ export default function TabLayout() {
         RichLaughify
       </Text>
 
-
-
       </View>
       <Tabs screenOptions={{
         headerShown: false,
