@@ -124,7 +124,7 @@ const PremiumLaughs = () => {
           <Image
             source={selectedPersona.image}
             style={[
-              tw`w-40 h-40 rounded-3xl mb-4`,
+              tw`w-80 h-80 rounded-3xl mb-4`,
               isLocked && { opacity: 0.6 },
             ]}
           />

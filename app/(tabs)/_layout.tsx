@@ -77,8 +77,8 @@ export default function TabLayout() {
   };
 
   return (
-    <View style={tw`flex-1 bg-gray-900`}>
-      <View style={tw`flex-row justify-between items-center px-4 pt-8 pb-2 bg-gray-900`}>
+    <View style={tw`flex-1 bg-black`}>
+      <View style={tw`flex-row justify-between items-center px-4 pt-8 pb-2 bg-gray-black`}>
 
       <Text
         style={[
@@ -119,9 +119,18 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
+          name="Scenarios"
+          options={{
+            tabBarLabel: 'Scenarios',
+            tabBarIcon: ({ color, size, focused }) => (
+              <TabIcon name="star-outline" size={size} color={color} focused={focused} />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="PremiumLaughs"
           options={{
-            tabBarLabel: 'Premium',
+            tabBarLabel: 'Laughs',
             tabBarIcon: ({ color, size, focused }) => (
               <TabIcon name="star-outline" size={size} color={color} focused={focused} />
             ),
