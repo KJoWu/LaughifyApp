@@ -1,51 +1,53 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Welcome to the Laughify App! 👋
 
-## Get started
+## 🚀 Built in Just 3 Days!
+I learned React Native in 3 days to create this app. Here's what it offers:
 
-1. Install dependencies
+1. **Connected to Supabase** for a seamless backend experience.
+2. **Email Authentication** for user accounts.
+3. **Update Email & Password** functionality for users.
 
-   ```bash
-   npm install
-   ```
+Unfornately I spent too much time figuring out authentication and setting up the database so please refer to the website I made for screenshots:
 
-2. Start the app
+https://vercel.com/kjowus-projects/laughify/2ttd13TcgJSSfvqiaYCM29uB6zQ9
 
-   ```bash
-    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🛠️ Getting Started
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Follow these steps to set up and run the app locally:
 
-## Get a fresh project
+### 1. Install Dependencies
 
-When you're ready, run:
+Run the following command in your terminal:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Start the App
 
-## Learn more
+Start the app using Expo with this command:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npx expo start
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 3. Choose Your Development Option
 
-## Join the community
+In the terminal output, you'll see options to open the app in:
 
-Join our community of developers creating universal apps.
+- [Development Build](https://docs.expo.dev/develop/development-builds/introduction/) - For full app functionality.
+- [Android Emulator](https://docs.expo.dev/workflow/android-studio-emulator/) - Test on an Android virtual device.
+- [iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/) - Test on an iOS virtual device.
+- [Expo Go](https://expo.dev/go) - A lightweight option to try out the app in a sandboxed environment.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# LaughifyApp
+---
+
+## 🧩 Development Notes
+
+Start developing by editing files inside the **`app` directory**. This project uses [file-based routing](https://docs.expo.dev/router/introduction), which simplifies navigation and code organization.
+
+Happy Laughing! 😄
