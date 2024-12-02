@@ -57,7 +57,7 @@ In the terminal output, you'll see options to open the app in:
 ![Screenshot 3](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%206.29.24%20PM.png)
 ![Screenshot 4](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%207.58.10%20PM.png)
 ![Screenshot 5](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%208.27.36%20PM.png)
-![Screenshot 6](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%208.28.24%20PM.png)
+![Screenshot 6](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%208.24.01%20PM.jpg)
 ![Screenshot 7](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%208.28.41%20PM.png)
 
 
