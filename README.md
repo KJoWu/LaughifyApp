@@ -1,14 +1,16 @@
 
 # Welcome to the Laughify App! 👋
 
-## 🚀 Built in Just 3 Days!
+## 🚀 My 3rd Hackathon
 I learned React Native in 3 days to create this app. Here's what it offers:
 
 1. **Connected to Supabase** for a seamless backend experience.
 2. **Email Authentication** for user accounts.
 3. **Update Email & Password** functionality for users.
 
-Unfornately I spent too much time figuring out authentication and setting up the database so please refer to the website I made for screenshots:
+Unfornately I spent too much time figuring out authentication and setting up the database so please refer to the website I made for screenshots. Opulaugh AI is still a work in progress. 
+
+You can check out PremiumLaughsWithSupaBase to see how I've integrated it with the app. Most of the functionality relies on data sourced from LaughStyle.ts
 
 https://vercel.com/kjowus-projects/laughify/2ttd13TcgJSSfvqiaYCM29uB6zQ9
 
@@ -46,8 +48,22 @@ In the terminal output, you'll see options to open the app in:
 
 ---
 
+## 📸 Screenshots
+
+## 📸 Screenshots
+
+![Screenshot 1](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%206.29.02%20PM.png)
+![Screenshot 2](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%206.29.12%20PM.png)
+![Screenshot 3](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%206.29.24%20PM.png)
+![Screenshot 4](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%207.58.10%20PM.png)
+![Screenshot 5](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%208.27.36%20PM.png)
+![Screenshot 6](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%208.28.24%20PM.png)
+![Screenshot 7](https://roukwgbjfcrickanmhcd.supabase.co/storage/v1/object/public/laughify_assets/images/Screenshot%202024-12-01%20at%208.28.41%20PM.png)
+
+
+
+
+
+
 ## 🧩 Development Notes
-
-Start developing by editing files inside the **`app` directory**. This project uses [file-based routing](https://docs.expo.dev/router/introduction), which simplifies navigation and code organization.
-
-Happy Laughing! 😄
+Elon, Jack Ma, Jeff Bezos I hope ur seeing this. Also, Happy Laughing! 😄
